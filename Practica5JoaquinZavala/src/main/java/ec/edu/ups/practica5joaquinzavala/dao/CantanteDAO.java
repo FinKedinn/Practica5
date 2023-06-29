@@ -8,10 +8,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class CantanteDAO implements ICantanteDAO {
-
+    
     //contador estatico para el maximo elementos de la lista de la clase
-    static int cont = 0;
-
+    private static int cont = 0;
+    private final int MAX_OBJECTCS = 10;
     //atributo lista cantante
     private List<Cantante> listaCantante;
 
@@ -73,7 +73,7 @@ public class CantanteDAO implements ICantanteDAO {
             Cantante c = it.next();
             if (c.getCodigo() == obj.getCodigo()) {
                 it.remove();
-                break;
+                return;
             }
         }
     }
@@ -81,6 +81,43 @@ public class CantanteDAO implements ICantanteDAO {
     @Override
     public List<Cantante> findAll() {
         return listaCantante;
+    }
+    
+     @Override
+    public void createDisco(Cantante cantante, int codigo, String nombre, int anioDeLanzamiento) {
+        if (listaCantante.contains(cantante)) {
+            cantante.agregarDisco(new Disco(codigo, nombre, anioDeLanzamiento));
+        }
+    }
+
+    @Override
+    public Disco readDisco(Cantante cantante, int codigo) {
+        if (listaCantante.contains(cantante)) { 
+            return cantante.buscarDisco(codigo);
+        }
+        return null;
+    }
+
+    @Override
+    public void updateDisco(Cantante cantante, int codigo, String nombre, int anioDeLanzamiento) {
+        if (listaCantante.contains(cantante)) {
+            cantante.actualizarDisco(new Disco(codigo, nombre, anioDeLanzamiento));
+            this.update(cantante);
+        }
+    }
+
+    @Override
+    public void deleteDisco(Cantante cantante, int codigo) {
+        if (listaCantante.contains(cantante)) {
+            cantante.eliminarDisco(new Disco(codigo));
+            this.update(cantante);
+        }
+    }
+
+    @Override
+    public List<Disco> findAllDisco(Cantante cantante) {
+        if (listaCantante.contains(cantante)) { return cantante.listarDiscografia();}
+        return null;
     }
 
 }

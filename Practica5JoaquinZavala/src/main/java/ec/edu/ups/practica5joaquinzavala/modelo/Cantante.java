@@ -110,15 +110,21 @@ public class Cantante extends Persona {
     //metodos de la clase abstract persona
     @Override
     public double calularSalario() {
+        double salarioExtra = super.getSalario();
+        
         if (numeroDeSensillos > 10 && numeroDeGiras > 3) {
-        } else if (numeroDeSensillos > 1 || numeroDeSensillos <= 10) {
-            return (super.getSalario() + 1000);
-        } else if (numeroDeGiras > 0 || numeroDeGiras < 4) {
-            return (super.getSalario() + super.getSalario() * 0.05);
-        } else if (discografia.size() >= 5) {
-            return (super.getSalario() + super.getSalario() * 0.03);
+            salarioExtra = salarioExtra + (super.getSalario() + 1000);
         }
-        return super.getSalario();
+        if (numeroDeSensillos >= 1 && numeroDeSensillos <= 10 ) {
+            salarioExtra = salarioExtra + (super.getSalario() * 0.05);
+        }
+        if (numeroDeGiras >= 1 && numeroDeGiras <= 3) {
+            salarioExtra =  salarioExtra + (super.getSalario() * 0.03);
+        }
+        if (discografia.size() >= 5) {
+            salarioExtra = salarioExtra + 200;
+        }
+        return salarioExtra;
     }
 
     // hashCode y equals de codigo de la clase padre

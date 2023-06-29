@@ -108,14 +108,16 @@ public class Compositor extends Persona {
     //metodo abstract de la herencia
     @Override
     public double calularSalario() {
+        double salarioFinal = super.getSalario();
         if (numeroDeComposiciones > 5) {
-            return (super.getSalario() + 300);
-        } else if (cancionesTop100Billaboar.size() >= 1 || cancionesTop100Billaboar.size() <= 3) {
-            return (super.getSalario() * 1.1);
-        } else if (cancionesTop100Billaboar.size() >= 4 || cancionesTop100Billaboar.size() <= 6) {
-            return (super.getSalario() * 1.2);
-        } else if (cancionesTop100Billaboar.size() > 6) {
-            return (super.getSalario());
+            salarioFinal =+ 300;
+        }
+        if (cancionesTop100Billaboar.size() >= 1 && cancionesTop100Billaboar.size() <= 3) {
+            salarioFinal =+ (super.getSalario() * 0.1);
+        }else if (cancionesTop100Billaboar.size() >= 4 && cancionesTop100Billaboar.size() <= 6) {
+            salarioFinal =+ (super.getSalario() * 0.2);
+        }else if (cancionesTop100Billaboar.size() > 6) {
+            salarioFinal =+ (super.getSalario() * 0.2);
         }
         return super.getSalario();
     }

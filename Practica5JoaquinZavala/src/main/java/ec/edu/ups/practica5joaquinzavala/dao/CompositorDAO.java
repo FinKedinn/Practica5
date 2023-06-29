@@ -18,8 +18,9 @@ import java.util.List;
 public class CompositorDAO implements ICompositorDAO {
 
     //contador estatico para el maximo de elementos de la clase
-    static int cont;
-
+    private static int cont;
+    private final int MAX_OBJECTCS = 10;
+    
     // atributo lista compositor
     List<Compositor> listaCompositor;
 
@@ -89,5 +90,43 @@ public class CompositorDAO implements ICompositorDAO {
     @Override
     public List<Compositor> findAll() {
         return listaCompositor;
+    }@Override
+    public void createCancion(Compositor compositor, int codigo, String titulo, String letra, double tiempoEnMinutos) {
+        if(listaCompositor.contains(compositor)){
+            compositor.agregarCancion(new Cancion(codigo, titulo, letra, tiempoEnMinutos));
+            this.update(compositor);
+        }
     }
+
+    @Override
+    public Cancion readCancion(Compositor compositor, int codigo) {
+        if(listaCompositor.contains(compositor)){
+            return compositor.buscarCancion(codigo);
+        }return null;
+    }
+
+    @Override
+    public void updateCancion(Compositor compositor, int codigo, String titulo, String letra, double tiempoEnMinutos) {
+        if(listaCompositor.contains(compositor)){
+            compositor.actualizarCancion(new Cancion(codigo, titulo, letra, tiempoEnMinutos));
+            this.update(compositor);
+        }
+        
+    }
+
+    @Override
+    public void deleteCancion(Compositor compositor, int codigo) {
+        if(listaCompositor.contains(compositor)){
+            compositor.eliminarCacion(new Cancion(codigo));
+            this.update(compositor);
+        }
+    }
+
+    @Override
+    public List<Cancion> findAllCanciones(Compositor compositor) {
+        if(listaCompositor.contains(compositor)){
+            return compositor.listarCancionesTop100Billaboar();
+        }return null;
+    }
+    
 }
