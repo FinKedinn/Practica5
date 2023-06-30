@@ -111,7 +111,6 @@ public class Cantante extends Persona {
     @Override
     public double calularSalario() {
         double salarioExtra = super.getSalario();
-        
         if (numeroDeSensillos > 10 && numeroDeGiras > 3) {
             salarioExtra = salarioExtra + (super.getSalario() + 1000);
         }
@@ -119,10 +118,10 @@ public class Cantante extends Persona {
             salarioExtra = salarioExtra + (super.getSalario() * 0.05);
         }
         if (numeroDeGiras >= 1 && numeroDeGiras <= 3) {
-            salarioExtra =  salarioExtra + (super.getSalario() * 0.03);
+            salarioExtra = salarioExtra + (super.getSalario() * 0.03);
         }
         if (discografia.size() >= 5) {
-            salarioExtra = salarioExtra + 200;
+            salarioExtra = salarioExtra + (super.getSalario() + 2000);
         }
         return salarioExtra;
     }
